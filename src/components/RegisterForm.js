@@ -4,7 +4,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
   });
 
   const handleChange = (e) => {
@@ -23,7 +23,7 @@ const RegisterForm = () => {
     setFormData({
       email: '',
       password: '',
-      confirmPassword: '',
+      password_confirmation: '',
     });
   };
 
@@ -55,8 +55,8 @@ const RegisterForm = () => {
           <label>Confirm Password:</label>
           <input
             type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            name="password_confirmation"
+            value={formData.password_confirmation}
             onChange={handleChange}
             required
           />
