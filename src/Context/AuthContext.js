@@ -59,12 +59,12 @@ export default function AuthProvider({children})
     }
 
     // Register
-    const register = (email, password, password_confirmation) =>{
+    const register = (email, password, confirmPassword) =>{
         // Post this data to the backend
         fetch("/signup",{
             method: "POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({email, password, password_confirmation})
+            body: JSON.stringify({email, password, confirmPassword})
         })
         .then(res=>res.json())
         .then((response) => {

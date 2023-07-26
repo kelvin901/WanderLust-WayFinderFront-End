@@ -4,7 +4,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
   });
 
   const handleChange = (e) => {
