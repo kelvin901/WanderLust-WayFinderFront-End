@@ -1,0 +1,48 @@
+{
+    "destinations": [
+      {
+        "id": 1,
+        "name": "Paris, France",
+        "description": "Discover the romantic charm of the City of Lights. Visit the Eiffel Tower, Louvre Museum, and stroll along the Seine River.",
+        "attractions": [
+          "Eiffel Tower",
+          "Louvre Museum",
+          "Notre-Dame Cathedral",
+          "Champs-Élysées",
+          "Montmartre",
+          "Versailles Palace"
+        ],
+        "landmarks": [
+          "Arc de Triomphe",
+          "Sacré-Cœur Basilica",
+          "Musée d'Orsay",
+          "Panthéon"
+        ],
+        "weather": "Mild to cool climate, with warm summers and chilly winters.",
+        "safetyTips": "Beware of pickpockets in crowded tourist areas. Keep your belongings secure."
+      },
+      {
+        "id": 2,
+        "name": "Bali, Indonesia",
+        "description": "Experience the exotic beauty of Bali. Relax on stunning beaches, explore ancient temples, and enjoy the vibrant culture.",
+        "attractions": [
+          "Tanah Lot Temple",
+          "Ubud Monkey Forest",
+          "Uluwatu Temple",
+          "Tegalalang Rice Terraces",
+          "Nusa Penida Island",
+          "Kuta Beach"
+        ],
+        "landmarks": [
+          "Pura Besakih",
+          "Tirta Empul Temple",
+          "Taman Ayun Temple",
+          "Goa Gajah"
+        ],
+        "weather": "Tropical climate, with warm and humid weather year-round.",
+        "safetyTips": "Respect local customs and traditions. Be cautious of strong currents while swimming in the ocean."
+      }
+     
+    ]
+  }
+  
