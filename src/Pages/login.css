@@ -1,0 +1,96 @@
+.cover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 30em;
+    height: 35em;
+    border-radius: 1em;
+    box-shadow: 0 0.188em 1.55em rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+  }
+  
+  .cover input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+  }
+  
+  .cover button {
+    display: inline;
+    margin-top: 1em;
+    padding: 0.8em 1em;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+  }
+  
+  .cover button:hover {
+    background-color: black;
+  }
+  
+  .cover .text {
+    margin-top: 1em;
+    color: #888;
+    font-size: 0.8em;
+  }
+  
+  .cover .alt-login {
+    margin-top: 1em;
+    display: flex;
+    gap: 0.5em;
+  }
+  
+  .cover .alt-login .fa-brands {
+    color: #888;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .cover .alt-login .fa-brands:hover {
+    color: #007bff;
+  }
+  
+  .cover .popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .cover .popup h3 {
+    color: white;
+    font-size: 1.2em;
+  }
+  
+  .cover .popup p {
+    color: #ccc;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+  }
+  
+  
+  /* TRANSITION TO SIGNUP PAGE ANIMATION */
+  
+  #loginbrandimg {
+    width: 20%;
+    height: auto;
+  margin-bottom: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    aspect-ratio: 1/1;
+  }
