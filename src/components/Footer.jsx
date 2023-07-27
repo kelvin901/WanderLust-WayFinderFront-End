@@ -11,57 +11,57 @@ export default function Footer() {
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">company</h1>
             <ul>
               <li>
-                <a href="#">About Us</a>
+                <a href="">About Us</a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="">Contact Us</a>
               </li>
               <li>
-                <a href="#">Knowledge Base</a>
+                <a href="">Knowledge Base</a>
               </li>
               <li>
-                <a href="#">Tutorials</a>
+                <a href="">Tutorials</a>
               </li>
               <li>
-                <a href="#">Terms and Conditions</a>
+                <a href="">Terms and Conditions</a>
               </li>
               <li>
-                <a href="#">Cookie Policy</a>
+                <a href="">Cookie Policy</a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="">Privacy Policy</a>
               </li>
               <li>
-                <a href="#">Careers</a>
+                <a href="">Careers</a>
               </li>
             </ul>
           </div>
           <div>
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">browser</h1>
             <ul>
-              <li>
+              {/* <li>
                 <a href="#">Memberships</a>
+              </li> */}
+              <li>
+                <a href="">CJobs</a>
               </li>
               <li>
-                <a href="#">CJobs</a>
+                <a href="">Experts</a>
               </li>
               <li>
-                <a href="#">Experts</a>
-              </li>
-              <li>
-                <a href="#">Organizations</a>
+                <a href="">Organizations</a>
               </li>
               <li>
                 <a href="#">Funding</a>
               </li>
               <li>
-                <a href="#">CAwards</a>
+                <a href="">CAwards</a>
               </li>
               <li>
-                <a href="#">Donors</a>
+                <a href="">Donors</a>
               </li>
               <li>
-                <a href="#">News</a>
+                <a href="">News</a>
               </li>
             </ul>
           </div>
@@ -69,19 +69,19 @@ export default function Footer() {
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">connect</h1>
             <ul>
               <li>
-                <a href="#">Twitter</a>
+                <a href="">Twitter</a>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <a href="">Facebook</a>
               </li>
               <li>
-                <a href="#">Linkedin</a>
+                <a href="">Linkedin</a>
               </li>
               <li>
-                <a href="#">Youtube</a>
+                <a href="">Youtube</a>
               </li>
               <li>
-                <a href="#">RSS</a>
+                <a href="">RSS</a>
               </li>
             </ul>
           </div>
