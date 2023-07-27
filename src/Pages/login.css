@@ -60,19 +60,9 @@
     margin-bottom: 10px;
   }
   
-  button {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+
   
-  button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+
   
   p {
     text-align: center;
@@ -111,6 +101,14 @@
   max-width: 400px; /* Set a maximum width for the login form */
   width: 90%; /* Set a width for the login form */
 }
+
+
+/* Add the hover effect */
+.cover-login:hover {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+
+
 
 /* Additional styles for responsiveness */
 @media screen and (max-width: 600px) {
