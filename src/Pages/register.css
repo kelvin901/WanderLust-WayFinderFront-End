@@ -1,0 +1,116 @@
+/* login.css */
+.cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background-color: #f2f2f2;
+  }
+  
+  .cover-signup {
+    padding: 25px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: -50px; /* Adjust the value as needed to move it upwards */
+    max-width: 400px; /* Set a maximum width for the login form */
+    width: 90%; /* Set a width for the login form */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Add the hover effect */
+  .cover-signup {
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cover input {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+  }
+  
+  .cover button {
+    display: inline;
+    margin-top: 1em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;  width: 30%;
+    padding: 8px;
+  }
+  
+  .cover button:hover {
+    
+    color: white;
+  }
+  
+  /* Additional styles for responsiveness */
+  @media screen and (max-width: 600px) {
+    /* Adjust the margin-top for smaller screens */
+    .cover-login {
+      margin-top: -30px;
+    }
+  }.fade-in {
+    animation: fade-in 0.5s;
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
+  
+  
+  
+    /* TRANSITION TO SIGNUP PAGE ANIMATION */
+    
+    .brandimg {
+      display: block;
+      margin: 0 auto;
+      width: 120px; /* Adjust the width as needed */
+      height: auto; /* Maintain the aspect ratio */
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    
+    input {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+      
+    p {
+      text-align: center;
+    }
+    
+  
+  
