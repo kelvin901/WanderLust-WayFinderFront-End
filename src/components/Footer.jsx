@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-[#212121] py-14 text-white">
       <Container>
         <div className="grid place-items-center sm:text-left text-center lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <img src={logo_2} alt="Grant canyon" className="w-44 h-14" />
+          <img src={logo_2} alt="Grant canyon" className="w-100 h-100" />
           <div className="sm:mt-0 mt-14">
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">company</h1>
             <ul>
