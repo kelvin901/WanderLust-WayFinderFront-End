@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CountdownTimer = ( {deadline}) => {
+const CountdownTimer = ({ deadline }) => {
   const [timeLeft, setTimeLeft] = useState(0); // Initializing state with the useState hook to track the time left until the deadline
 
   // Using the useEffect hook to update the time left and set a timer that counts down every second
@@ -15,22 +15,30 @@ const CountdownTimer = ( {deadline}) => {
     return () => clearInterval(timer); // Clearing the timer when the component unmounts or the deadline changes
   }, [deadline]);
 
-  // Helper function to convert milliseconds to hh:mm:ss format
+  // Helper function to convert milliseconds to formatted time
   const formatTime = (timeInMilliseconds) => {
     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-    return `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    let timeString = `${days.toString().padStart(2, '0')} days ${hours.toString().padStart(2, '0')} hours ${minutes.toString().padStart(2, '0')} minutes ${seconds.toString().padStart(2, '0')} seconds Left.`;
+
+    if (days === 0 && hours === 0) {
+      timeString = `${minutes.toString().padStart(2, '0')} minutes ${seconds.toString().padStart(2, '0')} seconds`;
+    }
+
+    return timeString;
   };
 
-  const theme = timeLeft>259200000 ? "green" : "red";
+  const theme = timeLeft > 259200000 ? "green" : "red";
 
   return (
     <div>
       {timeLeft > 0 ? (
-        <h1 style={{color:{theme}}}><i className="fa fa-clock text-xs text-[14px]" /> {formatTime(deadline)}</h1>
+        <h1 style={{ color: theme }}>
+          <i className="fa fa-clock text-xs text-[14px]" /> {formatTime(deadline)}
+        </h1>
       ) : (
         <h1>Offer ended :( </h1>
       )}
