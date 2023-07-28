@@ -11,7 +11,7 @@ export default function FundCard({ key, card }) {
         <h1 className="bg-[#5c807162] px-3 py-1 rounded-md text-[#6D9886] text-[17px] font-medium">
           € {card.price}
         </h1>
-        <p className="text-xs font-bold text-[#6D9886]">
+        <p className="text-xs font-bold ">
            {card.date}
         </p>
         <i className="fa fa-heart text-xs text-[#6D9886] text-[14px] ml-auto" />

@@ -15,7 +15,7 @@ const cards = [
   {
     id: 1,
     price: "234,378,123",
-    date: <CountdownTimer deadline='2023-08-12'/>,
+    date: <CountdownTimer deadline='2023-07-28'/>,
     topic: "Tian Tan Buddha/Big Buddha is Hong Kong's singular most recognisable and iconic attraction. Stands 34 m high and adjacent to Po Lin Monastery, a wondrous, incense-filled sanctum.",
     image: funds_1,
     circleText: "Hong Kong",
