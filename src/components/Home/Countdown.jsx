@@ -1,37 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
-const CountdownTimer = () => {
-  const [countdown, setCountdown] = useState(null);
+const CountdownTimer = ( {deadline}) => {
+  const [timeLeft, setTimeLeft] = useState(null); // Initializing state with the useState hook to track the time left until the deadline
 
+  // Using the useEffect hook to update the time left and set a timer that counts down every second
   useEffect(() => {
-    // Generate a random time greater than 1 hour (in milliseconds)
-    const randomTimeInMilliseconds = Math.floor(Math.random() * 3600000) + 3600000;
-
-    // Start the countdown
-    setCountdown(randomTimeInMilliseconds);
-
-    // Update the countdown every second
-    const interval = setInterval(() => {
-      setCountdown(prevCountdown => prevCountdown - 1000);
+    const newDeadline = new Date(deadline).getTime(); // Getting the deadline as a timestamp
+    const now = new Date().getTime(); // Getting the current time as a timestamp
+    const difference = newDeadline - now; // Calculating the difference between the deadline and the current time
+    setTimeLeft(difference); // Updating the time left with the difference
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1000); // Counting down every second
     }, 1000);
-
-    // Clean up the interval when the component is unmounted
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(timer); // Clearing the timer when the component unmounts or the deadline changes
+  }, [deadline]);
 
   // Helper function to convert milliseconds to hh:mm:ss format
   const formatTime = (timeInMilliseconds) => {
-    const hours = Math.floor(timeInMilliseconds / 3600000);
-    const minutes = Math.floor((timeInMilliseconds % 3600000) / 60000);
-    const seconds = Math.floor((timeInMilliseconds % 60000) / 1000);
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
     <div>
-      {countdown !== null ? (
-        <h1>{formatTime(countdown)}</h1>
+      {timeLeft !== null ? (
+        <h1>{formatTime(deadline)}</h1>
       ) : (
         <h1>Offer ended</h1>
       )}
