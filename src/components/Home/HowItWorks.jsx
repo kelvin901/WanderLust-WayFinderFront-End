@@ -7,26 +7,26 @@ const items = [
   {
     id: 1,
     icon: how_1,
-    heading: "Find the funding you are interested in",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et venenatis pharetra enim est lectus.",
+    heading: "Find your next destination",
+    text: "Discover the world's wonders, explore travel destinations, and ignite wanderlust!",
   },
   {
     id: 2,
     icon: how_2,
     heading: "Access the platform",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et venenatis pharetra enim est lectus.",
+    text: "Register and login to access more features like creating and customizing your next travel plan.",
   },
   {
     id: 3,
     icon: how_3,
-    heading: "Follow the step-by-step guidance",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et venenatis pharetra enim est lectus.",
+    heading: "Plan your next trip",
+    text: "Customize your next travel plan using our Itenerary tool.",
   },
   {
     id: 4,
     icon: how_4,
     heading: "Let the tech work its magic",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et venenatis pharetra enim est lectus.",
+    text: "Sit back, relax, and let us make your dream trip - hassle-free and unforgettable experiences!",
   },
 ];
 
@@ -35,7 +35,7 @@ export default function HowItWorks() {
     <section className="my-14">
       <Container>
         <SectionTitle title="how it works" />
-        <div className="bg-[#D9CAB3] bg-opacity-30 px-8 py-14 rounded-md mt-8">
+        <div className="bg-[#6D9886] bg-opacity-30 px-8 py-14 rounded-md mt-8">
           <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 place-items-center lg:gap-14 gap-8">
             {items.map((item) => (
               <div

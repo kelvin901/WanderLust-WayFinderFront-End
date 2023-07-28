@@ -28,7 +28,7 @@ const CountdownTimer = ( {deadline}) => {
   return (
     <div>
       {timeLeft !== null ? (
-        <h1>{formatTime(deadline)}</h1>
+        <h1><i className="fa fa-clock text-xs text-[14px]" /> {formatTime(deadline)}</h1>
       ) : (
         <h1>Offer ended</h1>
       )}

@@ -9,7 +9,7 @@ const NewsCard = ({ text }) => (
     <div className="pt-7 text-[13px] flex items-center gap-2">
       <img src={random} alt="person" className="w-10 h-10 rounded-full" />
       <div>
-        <h1 className="font-medium">Joy Arnold</h1>
+        <h1 className="font-medium">Joy Arnold254</h1>
         <p className="text-[#BFBFC8]">@Joy Arnold222</p>
       </div>
     </div>

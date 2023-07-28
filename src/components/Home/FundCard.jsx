@@ -12,7 +12,7 @@ export default function FundCard({ key, card }) {
           € {card.price}
         </h1>
         <p className="text-xs font-bold text-[#6D9886]">
-          <i className="fa fa-clock text-xs text-[14px]" /> {card.date}
+           {card.date}
         </p>
         <i className="fa fa-heart text-xs text-[#6D9886] text-[14px] ml-auto" />
       </div>
