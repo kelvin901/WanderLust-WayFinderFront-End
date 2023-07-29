@@ -34,7 +34,7 @@ function Navbar() {
                 </Link>
 
                 <Link
-                  to="/"
+                  to="/contact-us"
                   className="hover:bg-button-primary hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Contact

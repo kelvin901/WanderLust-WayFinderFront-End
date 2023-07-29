@@ -1,4 +1,4 @@
-import Discover from "../components/Home/Explore";
+// import Discover from "../components/Home/Explore";
 import Front from "../components/Home/Front";
 import Funds from "../components/Home/Funds";
 import HowItWorks from "../components/Home/HowItWorks";
@@ -15,7 +15,7 @@ export default function Home() {
       <Stats />
       <Funds />
       <Quiz />
-      <Discover />
+      {/* <Discover /> */}
       <HowItWorks />
       {/* <News /> */}
       <Stories />
