@@ -106,7 +106,7 @@ function Login({ onLogin }) {
         </form>
         <p style={{ marginTop: '50px' }}>
           Not registered?{' '}
-          <Link to='/register'>
+          <Link to='/signup'>
             <em style={{ fontSize: '17px', textDecoration: 'none' }}>
               Sign up today!
             </em>
