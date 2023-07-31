@@ -41,26 +41,41 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    console.log(
+
+
+      {
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        email: email, // Add the 'email' parameter here
+        password: password,
+      }
+
+
+    )
 
     if (password !== confirmPassword) {
       setPasswordsMatch(false);
       return; // Don't submit the form if passwords don't match
     }
-
+  
     const button = document.querySelector('button');
     button.innerHTML = 'Signing up...';
     button.disabled = true;
-
+  
     fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        first_name: firstName,   
-        last_name: lastName,     
-        username: username,      
-        password: password,      
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        email: email, // Add the 'email' parameter here
+        password: password,
       }),
     })
       .then((response) => {
@@ -87,13 +102,14 @@ function SignUpForm() {
       .catch((error) => {
         console.error('Error:', error);
       });
-
+  
     // After a successful or failed sign up, revert the button to "Sign Up"
     setTimeout(() => {
       button.innerHTML = 'Sign Up';
       button.disabled = false;
     }, 2000);
   };
+  
 
   useEffect(() => {
     setFadeState('fade-in');

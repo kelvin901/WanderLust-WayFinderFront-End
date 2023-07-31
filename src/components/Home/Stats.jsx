@@ -10,8 +10,8 @@ export default function Stats() {
         <p>Users</p>
       </div>
       <div>
-        <h1 className="md:text-[40px] text-[25px] font-bold">€200M</h1>
-        <p>Money in funds</p>
+        <h1 className="md:text-[40px] text-[25px] font-bold">200+</h1>
+        <p>Destinations</p>
       </div>
       <div>
         <h1 className="md:text-[40px] text-[25px] font-bold">50+</h1>
