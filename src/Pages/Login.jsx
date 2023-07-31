@@ -2,21 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { logo_2 } from "../assets/home";
 import './login.css'
-
 import swal from 'sweetalert';
+import { useAuth } from '../AuthContext'; // Import useAuth hook
 
-
-function Login({ onLogin }) {
+function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth(); // Access login function from AuthContext
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
-
-
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -24,46 +22,18 @@ function Login({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          swal({
-            title: 'Success',
-            text: 'Login Successful!',
-            icon: 'success',
-            timer: 1000,
-            buttons: false,
-          }).then(() => {
-            
-              if (typeof onLogin === 'function') {
-                onLogin();
-              }
-              navigate('/');
-            });
-        } else {
-          swal({
-            title: 'Error',
-            text: 'Invalid login',
-            icon: 'error',
-            buttons: false,
-          });
-          setError('An error occurred. Please try again.'); // Set error message
-  
-          //Revert button to original state
-          const button = document.querySelector('button');
-          button.textContent = 'Log in';
-          button.disabled = false;
-        }
+
+    login(username, password)
+      .then(() => {
+        swal({
+          title: 'Success',
+          text: 'Login Successful!',
+          icon: 'success',
+          timer: 1000,
+          buttons: false,
+        }).then(() => {
+          navigate('/');
+        });
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -75,18 +45,13 @@ function Login({ onLogin }) {
         });
         setError('An error occurred. Please try again.'); // Set error message
       });
-  
-      // Change button text to "Logging in"
-      const button = document.querySelector('button');
-      button.textContent = 'Logging in';
-      button.disabled = true;
-    };
+  };
+
+ 
   return (
     <div className='cover'>
       <div className={`cover-login fade-in`}>
-       
-      <img src={logo_2} alt='Logo' id='loginbrandimg' />
-
+        <img src={logo_2} alt='Logo' id='loginbrandimg' />
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <input
@@ -113,7 +78,6 @@ function Login({ onLogin }) {
           </Link>{' '}
         </p>
       </div>
-     
     </div>
   );
 }

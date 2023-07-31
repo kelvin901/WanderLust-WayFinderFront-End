@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { logo_2 } from "../assets/home";
 import './register.css';
 import swal from 'sweetalert';
+import { useAuth } from '../AuthContext'; // Import useAuth hook
 
-function SignUpForm() {
+function Register() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -12,8 +13,8 @@ function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [fadeState, setFadeState] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const { register } = useAuth(); // Access register function from AuthContext
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -41,86 +42,44 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    console.log(
-
-
-      {
-        first_name: firstName,
-        last_name: lastName,
-        username: username,
-        email: email, // Add the 'email' parameter here
-        password: password,
-      }
-
-
-    )
 
     if (password !== confirmPassword) {
       setPasswordsMatch(false);
       return; // Don't submit the form if passwords don't match
     }
-  
-    const button = document.querySelector('button');
-    button.innerHTML = 'Signing up...';
-    button.disabled = true;
-  
-    fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        username: username,
-        email: email, // Add the 'email' parameter here
-        password: password,
-      }),
+
+    register({
+      first_name: firstName,
+      last_name: lastName,
+      username: username,
+      email: email,
+      password: password,
     })
-      .then((response) => {
-        if (response.ok) {
-          swal({
-            title: 'Success',
-            text: 'Sign up successful!',
-            icon: 'success',
-            buttons: false,
-            timer: 2000,
-          }).then(() => {
-            navigate('/');
-          });
-        } else {
-          console.log('Sign up failed');
-          swal({
-            title: 'Error',
-            text: 'Failed to sign up',
-            icon: 'error',
-            buttons: false,
-          });
-        }
+      .then(() => {
+        swal({
+          title: 'Success',
+          text: 'Sign up successful!',
+          icon: 'success',
+          buttons: false,
+          timer: 2000,
+        }).then(() => {
+          navigate('/');
+        });
       })
       .catch((error) => {
         console.error('Error:', error);
+        swal({
+          title: 'Error',
+          text: 'Failed to sign up',
+          icon: 'error',
+          buttons: false,
+        });
       });
-  
-    // After a successful or failed sign up, revert the button to "Sign Up"
-    setTimeout(() => {
-      button.innerHTML = 'Sign Up';
-      button.disabled = false;
-    }, 2000);
   };
-  
-
-  useEffect(() => {
-    setFadeState('fade-in');
-    return () => {
-      setFadeState('fade-out');
-    };
-  }, []);
 
   return (
     <div className='cover'>
-      <div className={`cover-signup ${fadeState}`}>
+      <div className={`cover-signup fade-in`}>
         <img src={logo_2} alt="Logo" className='brandimg' />
         <h1 style={{ marginTop: "5px", marginBottom: "20px" }}>Sign Up</h1>
         <form onSubmit={handleSubmit}>
@@ -180,4 +139,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default Register;
