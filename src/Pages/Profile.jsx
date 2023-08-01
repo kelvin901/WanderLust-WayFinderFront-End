@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../AuthContext';
+import { useAuth } from '../AuthContext';
 
 export default function Profile() {
 
-  const {currentUser} = useContext(AuthContext)  
+  const {user} = useContext(useAuth)  
   return (
     <div>
       {
-        currentUser && currentUser?
+        user && user?
         <>
-          <h4>Email: {currentUser && currentUser.email}</h4>
-          <h4>Created-at: {currentUser && currentUser.created_at}</h4>
-          <h4>Updated-at: {currentUser && currentUser.updated_at}</h4>
+          <h4>Email: {user && user.name}</h4>
+          <h4>Created-at: {user && user.created_at}</h4>
+          <h4>Updated-at: {user && user.updated_at}</h4>
         </>
         :
         <div className='text-info'>
