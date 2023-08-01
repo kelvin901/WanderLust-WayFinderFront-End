@@ -8,11 +8,19 @@ const Profile = () => {
     last_name: user.last_name || '',
     username: user.username || '',
     email: user.email || '',
+    avatar: user.avatar || null, // Set initial value to null or the user's current avatar URL
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevState) => ({ ...prevState, avatar: file }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -86,6 +94,19 @@ const Profile = () => {
                   className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
                 />
               </div>
+              <div className="mb-4">
+                <label htmlFor="avatar" className="font-bold block mb-1">
+                  Avatar:
+                </label>
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                />
+              </div>
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -101,28 +122,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-// import React from 'react';
-// import { useAuth } from '../AuthContext';
-// import UserInfo from '../components/Profile/UserInfo';
-// import UpdateForm from '../components/Profile/UpdateForm';
-
-
-// const Profile = () => {
-//   const { user, updateUser } = useAuth();
-
-//   if (!user) {
-//     return <div>Please log in to view your profile.</div>;
-//   }
-
-//   return (
-//     <>
-//       <UserInfo user={user} />
-//       <UpdateForm user={user} updateUser={updateUser} />
-//     </>
-//   );
-// };
-
-// export default Profile;
