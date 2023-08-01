@@ -4,7 +4,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Contact from "./Pages/Contact";
 import Profile from "./Pages/Profile";
-import Destinations from "./Pages/Explore";
+import Explore from "./Pages/Explore";
 
 export default function MyRoutes() {
 
