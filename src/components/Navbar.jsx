@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logo } from '../assets/home';
 import Container from './Container';
 import { useAuth } from '../AuthContext';
@@ -7,6 +7,7 @@ import { useAuth } from '../AuthContext';
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleMobileMenuToggle = () => {
     setIsOpen(!isOpen);
@@ -14,6 +15,12 @@ function Navbar() {
 
   const handleMobileLinkClick = () => {
     setIsOpen(false);
+  };
+
+  const handleProfileClick = () => {
+    setIsOpen(false);
+    // Replace '/profile' with the actual path to the user profile page
+    navigate('/profile');
   };
 
   return (
@@ -61,12 +68,7 @@ function Navbar() {
               <div className="hidden md:block">
                 <div className="flex items-center gap-4">
                   <button
-                    onClick={() => {
-                      // Handle navigation to user profile page
-                      // Replace '/profile' with the actual path to the user profile page
-                      // Example: history.push('/profile')
-                      console.log('Navigate to user profile');
-                    }}
+                    onClick={handleProfileClick}
                     className="hover:bg-button-primary px-4 py-1 rounded-xl"
                   >
                     {user.username}
@@ -95,9 +97,7 @@ function Navbar() {
             )}
           </div>
 
-
           {/* MOBILE VIEW */}
-
           <div className="-mr-2 flex md:hidden">
             <button
               onClick={handleMobileMenuToggle}
@@ -149,7 +149,6 @@ function Navbar() {
               )}
               {user ? (
                 <Link
-                
                   to="/login"
                   onClick={logout}
                   className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -183,9 +182,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-
-
-
-
-

@@ -85,8 +85,32 @@ export function AuthProvider({ children }) {
     });
   };
 
+
+  // UPDATE USER PROFILE INFO
+
+  const updateUser = (userData) => {
+    return fetch(`/users/${user.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Failed to update user information');
+        }
+      })
+      .then((data) => {
+        setUser(data); // Update the user state with the received data
+        return data;
+      });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

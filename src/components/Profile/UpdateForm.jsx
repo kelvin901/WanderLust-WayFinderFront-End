@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useAuth } from '../AuthContext';
 
-const Profile = () => {
-  const { user, updateUser } = useAuth();
+const UpdateForm = ({ user, updateUser }) => {
   const [formData, setFormData] = useState({
     first_name: user.first_name || '',
     last_name: user.last_name || '',
@@ -23,15 +21,11 @@ const Profile = () => {
     });
   };
 
-  if (!user) {
-    return <div>Please log in to view your profile.</div>;
-  }
-
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-gray-900">User Profile</h2>
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">Update Profile</h2>
           <div className="bg-white rounded-lg p-4 shadow-md">
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -100,29 +94,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
-
-
-
-// import React from 'react';
-// import { useAuth } from '../AuthContext';
-// import UserInfo from '../components/Profile/UserInfo';
-// import UpdateForm from '../components/Profile/UpdateForm';
-
-
-// const Profile = () => {
-//   const { user, updateUser } = useAuth();
-
-//   if (!user) {
-//     return <div>Please log in to view your profile.</div>;
-//   }
-
-//   return (
-//     <>
-//       <UserInfo user={user} />
-//       <UpdateForm user={user} updateUser={updateUser} />
-//     </>
-//   );
-// };
-
-// export default Profile;
+export default UpdateForm;
