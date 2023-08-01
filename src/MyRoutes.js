@@ -18,7 +18,7 @@ export default function MyRoutes() {
       <Route path="/signup" element={<Register />} />
       <Route path="/contact-us" element={<Contact />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/destinations" element={<Destinations/>}/>
+      <Route path="/explore" element={<Explore/>}/>
     </Routes>
   );
 }
