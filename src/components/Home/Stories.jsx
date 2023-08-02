@@ -18,6 +18,7 @@ const RandomStarRating = () => {
         {filledStars}
         {emptyStars}
       </p>
+      
     </div>
   );
 };
