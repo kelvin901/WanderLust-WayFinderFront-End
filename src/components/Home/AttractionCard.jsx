@@ -26,10 +26,12 @@ const AttractionsGrid = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,         
+    autoplaySpeed: 3000,
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
       {attractions.map((attraction) => (
         <div key={attraction.id} className="bg-white shadow-lg rounded-lg p-4">
           <h2 className="text-xl font-bold mb-2">{attraction.attraction_name}</h2>
@@ -42,7 +44,12 @@ const AttractionsGrid = () => {
                 attraction.image_3,
                 attraction.image_4,
               ].map((image, index) => (
-                <img key={index} src={image} alt={`Image ${index + 1}`} className="w-full" />
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-48 object-cover"
+                />
               ))}
             </Slider>
           </div>
