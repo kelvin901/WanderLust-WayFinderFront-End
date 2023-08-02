@@ -1,6 +1,7 @@
-import React, { useState, createContext, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import swal from 'sweetalert';
+import Cookies from 'js-cookie';
+
 const AuthContext = createContext();
 
 export function useAuth() {
@@ -9,6 +10,14 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Check if the user is logged in by reading the 'user' cookie
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+      setUser(JSON.parse(userCookie));
+    }
+  }, []);
 
   const login = (username, password) => {
     return fetch('/login', {
@@ -29,7 +38,8 @@ export function AuthProvider({ children }) {
         }
       })
       .then((data) => {
-        setUser(data); // Update the user state with the received data
+        setUser(data.user); // Update the user state with the received data
+        Cookies.set('user', JSON.stringify(data.user), { expires: 7 }); // Set the 'user' cookie to expire in 7 days
         return data;
       });
   };
@@ -56,11 +66,11 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    fetch("/logout",{
-      method: "DELETE",
+    return fetch('/logout', {
+      method: 'DELETE',
     })
-    .then(res=>res.json())
-    .then(() => {
+      .then((res) => res.json())
+      .then(() => {
         swal({
           title: 'Success',
           text: 'Logout Successful!',
@@ -68,23 +78,20 @@ export function AuthProvider({ children }) {
           timer: 1000,
           buttons: false,
         }).then(() => {
-        //   navigate('/login');
+          setUser(null); // Clear user state on logout
+          Cookies.remove('user'); // Remove the 'user' cookie
         });
       })
-      .catch((error) => {
-        console.error('Error:', error);
-        swal({
-          title: 'Error',
-          text: 'Failed',
-          icon: 'error',
-          buttons: false,
-        });
-     
-      setUser(null); // Clear user state on logout
-
-    });
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      //   swal({
+      //     title: 'Error',
+      //     text: 'Failed',
+      //     icon: 'error',
+      //     buttons: false,
+      //   });
+      // });
   };
-
 
   // UPDATE USER PROFILE INFO
 
