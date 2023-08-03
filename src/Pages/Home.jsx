@@ -5,7 +5,7 @@ import HowItWorks from "../components/Home/HowItWorks";
 // import News from "../components/Home/News";
 import Quiz from "../components/Home/Quiz";
 import Stats from "../components/Home/Stats";
-// import Stories from "../components/Home/Stories";
+import Stories from "../components/Home/Stories";
 import Trusted from "../components/Home/Trusted";
 import AttractionsGrid from "../components/Home/AttractionCard";
 
@@ -20,7 +20,7 @@ export default function Home() {
       {/* <Discover /> */}
       <HowItWorks />
       {/* <News /> */}
-      {/* <Stories /> */}
+      <Stories />
       <Trusted />
     </main>
   );

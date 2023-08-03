@@ -1,6 +1,6 @@
-import React, { useState, createContext, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import swal from 'sweetalert';
+
 const AuthContext = createContext();
 
 export function useAuth() {
@@ -9,6 +9,14 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Check if the user is logged in by reading the 'user' data from localStorage
+    const userLocalStorage = localStorage.getItem('user');
+    if (userLocalStorage) {
+      setUser(JSON.parse(userLocalStorage));
+    }
+  }, []);
 
   const login = (username, password) => {
     return fetch('/login', {
@@ -29,7 +37,8 @@ export function AuthProvider({ children }) {
         }
       })
       .then((data) => {
-        setUser(data); // Update the user state with the received data
+        setUser(data.user); // Update the user state with the received data
+        localStorage.setItem('user', JSON.stringify(data.user)); // Store the 'user' data in localStorage
         return data;
       });
   };
@@ -56,11 +65,11 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    fetch("/logout",{
-      method: "DELETE",
+    return fetch('/logout', {
+      method: 'DELETE',
     })
-    .then(res=>res.json())
-    .then(() => {
+      .then((res) => res.json())
+      .then(() => {
         swal({
           title: 'Success',
           text: 'Logout Successful!',
@@ -68,23 +77,11 @@ export function AuthProvider({ children }) {
           timer: 1000,
           buttons: false,
         }).then(() => {
-        //   navigate('/login');
+          setUser(null); // Clear user state on logout
+          localStorage.removeItem('user'); // Remove the 'user' data from localStorage
         });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        swal({
-          title: 'Error',
-          text: 'Failed',
-          icon: 'error',
-          buttons: false,
-        });
-     
-      setUser(null); // Clear user state on logout
-
-    });
+      });
   };
-
 
   // UPDATE USER PROFILE INFO
 
