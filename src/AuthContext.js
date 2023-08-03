@@ -1,6 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import swal from 'sweetalert';
-import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
@@ -12,10 +11,10 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if the user is logged in by reading the 'user' cookie
-    const userCookie = Cookies.get('user');
-    if (userCookie) {
-      setUser(JSON.parse(userCookie));
+    // Check if the user is logged in by reading the 'user' data from localStorage
+    const userLocalStorage = localStorage.getItem('user');
+    if (userLocalStorage) {
+      setUser(JSON.parse(userLocalStorage));
     }
   }, []);
 
@@ -39,7 +38,7 @@ export function AuthProvider({ children }) {
       })
       .then((data) => {
         setUser(data.user); // Update the user state with the received data
-        Cookies.set('user', JSON.stringify(data.user), { expires: 7 }); // Set the 'user' cookie to expire in 7 days
+        localStorage.setItem('user', JSON.stringify(data.user)); // Store the 'user' data in localStorage
         return data;
       });
   };
@@ -79,18 +78,9 @@ export function AuthProvider({ children }) {
           buttons: false,
         }).then(() => {
           setUser(null); // Clear user state on logout
-          Cookies.remove('user'); // Remove the 'user' cookie
+          localStorage.removeItem('user'); // Remove the 'user' data from localStorage
         });
-      })
-      // .catch((error) => {
-      //   console.error('Error:', error);
-      //   swal({
-      //     title: 'Error',
-      //     text: 'Failed',
-      //     icon: 'error',
-      //     buttons: false,
-      //   });
-      // });
+      });
   };
 
   // UPDATE USER PROFILE INFO
