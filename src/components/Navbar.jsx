@@ -52,7 +52,7 @@ function Navbar() {
                       About
                     </Link>
                     <Link
-                      to="/contact-us"
+                      to="/contact"
                       className="hover:bg-button-primary hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                     >
                       Contact
@@ -139,7 +139,7 @@ function Navbar() {
                     About
                   </Link>
                   <Link
-                    to="/contact-us"
+                    to="/contact"
                     onClick={handleMobileLinkClick}
                     className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                   >

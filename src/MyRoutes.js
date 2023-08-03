@@ -1,26 +1,41 @@
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Contact from "./Pages/Contact";
 import Profile from "./Pages/Profile";
-import Explore from "./Pages/Explore";
+// import Explore from "./Pages/Explore";
 import AttractionsDashboard from "./Pages/AttractionsDashboard";
+import TravelItinerary from "./Pages/Itinerary";
+import { useAuth } from "./AuthContext";
 
 export default function MyRoutes() {
+  const auth = useAuth();
 
+  // Helper function to check if the user is logged in
+  const isAuthenticated = () => !!auth.user;
 
-
+  // Custom rendering function for private routes
+  const renderPrivateRoute = (element) => {
+    return isAuthenticated() ? element : <Navigate to="/login" replace />;
+  };
 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
-      <Route path="/contact-us" element={<Contact />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/explore" element={<Explore/>}/>
-      <Route path="/admin" element={<AttractionsDashboard />} />
+
+    {/* PRIVATE ROUTES */}
+
+      <Route path="/contact" element={renderPrivateRoute(<Contact />)} />
+      {/* Profile route with custom rendering */}
+      <Route path="/profile" element={renderPrivateRoute(<Profile />)} />
+      {/* Explore route with custom rendering */}
+      <Route path="/explore" element={renderPrivateRoute(<TravelItinerary />)} />
+      {/* Admin route with custom rendering */}
+      <Route path="/admin" element={renderPrivateRoute(<AttractionsDashboard />)} />
     </Routes>
   );
 }

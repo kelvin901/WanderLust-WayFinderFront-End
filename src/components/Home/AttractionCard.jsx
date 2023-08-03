@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -33,7 +32,7 @@ const AttractionsGrid = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
       {attractions.map((attraction) => (
-        <div key={attraction.id} className="bg-white shadow-lg rounded-lg p-4">
+        <div key={attraction.id} className="bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105 hover:shadow-md">
           <h2 className="text-xl font-bold mb-2">{attraction.attraction_name}</h2>
           <p className="text-gray-600 mb-4">{attraction.description}</p>
           <div className="mb-4">
