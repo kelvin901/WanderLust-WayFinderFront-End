@@ -9,6 +9,7 @@ import Profile from "./Pages/Profile";
 import AttractionsDashboard from "./Pages/AttractionsDashboard";
 import TravelItinerary from "./Pages/Itinerary";
 import { useAuth } from "./AuthContext";
+import About from "./Pages/About";
 
 export default function MyRoutes() {
   const auth = useAuth();
@@ -22,10 +23,14 @@ export default function MyRoutes() {
   };
 
   return (
+
+    // PUBLIC ROUTES
+
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
+      <Route path="/about" element={<About />} />
 
     {/* PRIVATE ROUTES */}
 
