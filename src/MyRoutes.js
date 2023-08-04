@@ -10,6 +10,7 @@ import AttractionsDashboard from "./Pages/AttractionsDashboard";
 import TravelItinerary from "./Pages/Itinerary";
 import { useAuth } from "./AuthContext";
 import About from "./Pages/About";
+import AttractionDetails from "./components/Home/AttractionDetails";
 
 export default function MyRoutes() {
   const auth = useAuth();
@@ -34,12 +35,10 @@ export default function MyRoutes() {
 
     {/* PRIVATE ROUTES */}
 
+    <Route path="/attraction/:id" element={renderPrivateRoute(<AttractionDetails />)} />
       <Route path="/contact" element={renderPrivateRoute(<Contact />)} />
-      {/* Profile route with custom rendering */}
       <Route path="/profile" element={renderPrivateRoute(<Profile />)} />
-      {/* Explore route with custom rendering */}
       <Route path="/explore" element={renderPrivateRoute(<TravelItinerary />)} />
-      {/* Admin route with custom rendering */}
       <Route path="/admin" element={renderPrivateRoute(<AttractionsDashboard />)} />
     </Routes>
   );
