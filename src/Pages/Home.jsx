@@ -9,6 +9,7 @@ import Stories from "../components/Home/Stories";
 import Trusted from "../components/Home/Trusted";
 import AttractionsGrid from "../components/Home/AttractionCard";
 
+
 export default function Home() {
   return (
     <main>

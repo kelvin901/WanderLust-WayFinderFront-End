@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { useAuth } from '../AuthContext';
+// import { userEvent } from "@testing-library/user-event/dist/types/setup";
 
 export default function ContactUs() {
+  const {user}  = useAuth();
   const form = useRef();
   const [formStatus, setFormStatus] = React.useState("Send");
 
@@ -37,6 +40,7 @@ export default function ContactUs() {
               placeholder="Full names"
               required
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50"
+              value={user.username}
             />
           </div>
 
@@ -48,6 +52,7 @@ export default function ContactUs() {
               type="email"
               name="email"
               placeholder="Email"
+              value = {user.email}
               required
               // pattern="^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50"
