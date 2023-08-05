@@ -9,25 +9,32 @@ export default function ContactUs() {
   const {user}  = useAuth();
   const form = useRef();
   const [formStatus, setFormStatus] = React.useState("Send");
+  const resetForm = () => {
+    form.current.reset();
+  };
+  
+
 
   const sendEmail = (e) => {
     e.preventDefault();
-    setFormStatus("Submitting...");
+    setFormStatus("Sending...");
     emailjs
       .sendForm('service_cij3dub', 'template_d1tv4gt', form.current, '5_mhEEZgXYyxuiO_F')
       .then(
         (result) => {
           console.log(result.text);
-          setFormStatus("Submitted");
+          setFormStatus("Send");
           Swal.fire({
             icon: 'success',
             title: 'Email Sent!',
             text: 'Thank you for contacting us. We will get back to you soon!',
+          }).then(() => {
+            resetForm();
           });
         },
         (error) => {
           console.log(error.text);
-          setFormStatus("Send"); // Reset form status if there was an error
+          setFormStatus("Send"); 
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -37,8 +44,10 @@ export default function ContactUs() {
       );
   };
   
+  
 
   return (
+    
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="max-w-md w-full px-4 py-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
