@@ -66,6 +66,7 @@ function Login() {
             value={password}
             onChange={handlePasswordChange}
           />
+          
           {error && <p className='error-message'>{error}</p>}
           <button type='submit'>Log in</button>
         </form>
