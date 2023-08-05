@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { useAuth } from '../AuthContext';
+import Swal from 'sweetalert2';
+
 // import { userEvent } from "@testing-library/user-event/dist/types/setup";
 
 export default function ContactUs() {
@@ -12,17 +14,29 @@ export default function ContactUs() {
     e.preventDefault();
     setFormStatus("Submitting...");
     emailjs
-      .sendForm("service_tfsl5gj", "template_afwt2gf", form.current, "qpxSDyA1PykJtbR_N")
+      .sendForm('service_cij3dub', 'template_d1tv4gt', form.current, '5_mhEEZgXYyxuiO_F')
       .then(
         (result) => {
           console.log(result.text);
+          setFormStatus("Submitted");
+          Swal.fire({
+            icon: 'success',
+            title: 'Email Sent!',
+            text: 'Thank you for contacting us. We will get back to you soon!',
+          });
         },
         (error) => {
           console.log(error.text);
+          setFormStatus("Send"); // Reset form status if there was an error
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong. Please try again later.',
+          });
         }
       );
-    setFormStatus("Submitted");
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -88,7 +102,7 @@ export default function ContactUs() {
 
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-opacity-50"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-2 rounded focus:outline-none focus:ring focus:ring-opacity-50"
           >
             {formStatus}
           </button>
