@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../AuthContext';
 
 const ItineraryCreation = () => {
-  const [destinations, setDestinations] = useState([]);
+  const { user } = useAuth(); // Get the logged-in user from the AuthContext
+  const [userDestinations, setUserDestinations] = useState([]);
   const [selectedDestination, setSelectedDestination] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -9,17 +11,17 @@ const ItineraryCreation = () => {
   const [duration, setDuration] = useState('');
 
   useEffect(() => {
-    // Fetch all destinations when the component mounts
+    // Fetch destinations for the logged-in user when the component mounts
     // You can adjust the API endpoint according to your server setup
-    fetch('/destinations')
+    fetch(`/users/${user.id}/destinations`)
       .then((response) => response.json())
       .then((data) => {
-        setDestinations(data);
+        setUserDestinations(data);
       })
       .catch((error) => {
         console.error('Error fetching destinations:', error);
       });
-  }, []);
+  }, [user.id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,6 +34,7 @@ const ItineraryCreation = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: user.id, // Set the user_id to the logged-in user's id
         destination_id: selectedDestination,
         date,
         time,
@@ -65,7 +68,7 @@ const ItineraryCreation = () => {
             className="border border-gray-400 p-2 w-full"
           >
             <option value="" disabled>Select a destination</option>
-            {destinations.map((destination) => (
+            {userDestinations.map((destination) => (
               <option key={destination.id} value={destination.id}>
                 {destination.name}
               </option>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../AuthContext';
 
 const DestinationInput = () => {
+  const { user } = useAuth(); // Get the logged-in user from the AuthContext
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [interests, setInterests] = useState('');
@@ -10,8 +12,7 @@ const DestinationInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Perform a fetch request to save the destination data to the server
-    // You can use the fetch API or a library like Axios for the request
-    // For example, using fetch:
+    // Include the user_id from the logged-in user
     fetch('/destinations', {
       method: 'POST',
       headers: {
@@ -23,6 +24,7 @@ const DestinationInput = () => {
         interests,
         budget,
         location,
+        user_id: user.id, // Include the user_id from the logged-in user
       }),
     })
       .then((response) => response.json())
