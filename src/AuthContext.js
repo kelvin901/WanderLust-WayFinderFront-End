@@ -65,25 +65,6 @@ export function AuthProvider({ children }) {
       });
   };
 
-  // const logout = () => {
-  //   return fetch('/logout', {
-  //     method: 'DELETE',
-  //   })
-  //     .then((res) => res.json())      
-  //     .then(() => {
-  //       swal({
-  //         title: 'Success',
-  //         text: 'Logout Successful!',
-  //         icon: 'success',
-  //         timer: 1000,
-  //         buttons: false,
-  //       }).then(() => {
-  //         setUser(null); // Clear user state on logout
-  //         localStorage.removeItem('user'); // Remove the 'user' data from localStorage
-  //       });
-  //     });
-  // };
-
   const logout = async () => {
     try {
       await fetch('/logout', {
