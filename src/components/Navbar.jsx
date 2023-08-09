@@ -90,9 +90,10 @@ function Navbar() {
                   {/* Display the user's avatar */}
                   <Image
                     cloudName="db4tmeuux" // Replace with your Cloudinary cloud_name
-                    publicId={user.avatar}
-                    width="32"
-                    height="32"
+                    publicId={user.avatar || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
+                    width="48"
+                    height="48"
+                    border="solid blue"
                     crop="thumb"
                     className="rounded-full"
                   />

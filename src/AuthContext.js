@@ -13,7 +13,9 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // Check if the user is logged in by reading the 'user' data from localStorage
+
     const userLocalStorage = localStorage.getItem('user');
+    console.log(userLocalStorage)
     if (userLocalStorage) {
       setUser(JSON.parse(userLocalStorage));
     }

@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { Image } from 'cloudinary-react';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { useAuth } from '../AuthContext';
-
 const Profile = () => {
   const { user, updateUser } = useAuth();
+  const [showSettings, setShowSettings] = useState(false);
   const [formData, setFormData] = useState({
     first_name: user.first_name || '',
     last_name: user.last_name || '',
     username: user.username || '',
     email: user.email || '',
-    avatar: user.avatar || null, // Set initial value to null or the user's current avatar URL
+    avatar: user.avatar || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+  const handleSettingsClick = () => {
+    setShowSettings(true);
   };
 
   const handleAvatarChange = async (e) => {
@@ -24,14 +26,12 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', 'dldgcvsi');
-
       try {
         const response = await fetch('https://api.cloudinary.com/v1_1/db4tmeuux/image/upload', {
           method: 'POST',
           body: formData,
         });
         const data = await response.json();
-        console.log(data);
         setFormData((prevState) => ({ ...prevState, avatar: data.secure_url }));
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -39,41 +39,41 @@ const Profile = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+  // const handleSettingsSave = async () => {
+  //   setShowSettings(false);
+  //   try {
+  //     const updatedUser = await updateUser(formData);
+  //     swal({
+  //       title: 'Success',
+  //       text: 'Profile updated successfully!',
+  //       icon: 'success',
+  //       buttons: false,
+  //       timer: 1500,
+  //     }).then(() => {
+  //       window.location.reload();
+  //     });
+  //   } catch (error) {
+  //     console.error('Error updating profile:', error);
+  //     // Optionally, you can show an error message using SweetAlert
+  //   }
+  // };
 
+  const handleSubmit = async () => {
+    setShowSettings(false);
     const { id, ...formDataWithoutId } = formData;
-    // console.log(formDataWithoutId);
-
     try {
       const updatedUser = await updateUser(formDataWithoutId);
-
-      swal({
+      Swal.fire({
         title: 'Success',
         text: 'Profile updated successfully!',
         icon: 'success',
-        buttons: false,
+        showConfirmButton: false,
         timer: 1500,
-      }).then(() => {
-        window.location.reload();
       });
     } catch (error) {
       console.error('Error updating profile:', error);
-      // Optionally, you can show an error message using SweetAlert
     }
   };
-
-  if (!user) {
-    return <div>Please log in to view your profile.</div>;
-  }
-
-  <Image
-        cloudName="db4tmeuux" // Replace with your Cloudinary cloud_name
-        publicId={formData.avatar || user.avatar}
-        width="100"
-        crop="scale"
-  />
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -81,84 +81,93 @@ const Profile = () => {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-gray-900">User Profile</h2>
           <div className="bg-white rounded-lg p-4 shadow-md">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label htmlFor="first_name" className="font-bold block mb-1">
-                  First Name:
-                </label>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+            <div className="flex items-center mb-4">
+              <div className="mr-4">
+                <Image
+                  cloudName="db4tmeuux"
+                  publicId={user.avatar || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
+                  width="80"
+                  height="80"
+                  crop="thumb"
+                  radius="max"
                 />
               </div>
-              <div className="mb-4">
-                <label htmlFor="last_name" className="font-bold block mb-1">
-                  Last Name:
-                </label>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                />
+              <div>
+                <p className="text-lg font-semibold">
+                  {user.first_name} {user.last_name}
+                </p>
+                <p className="text-gray-600">@{user.username}</p>
               </div>
-              <div className="mb-4">
-                <label htmlFor="username" className="font-bold block mb-1">
-                  Username:
-                </label>
+            </div>
+            <button
+              onClick={handleSettingsClick}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
+      {showSettings && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg p-8 shadow-md">
+            <form>
                 <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="font-bold block mb-1">
-                  Email:
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="avatar" className="font-bold block mb-1">
-                  Avatar:
-                </label>
-                <input
-                  type="file"
-                  id="avatar"
-                  name="avatar"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+                type="text"
+                name="first_name"
+                value={formData.first_name}
+                placeholder="First Name"
+                class="mb-2 w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="last_name"
+                value={formData.last_name}
+                placeholder="Last Name"
+                class="mb-2 w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                placeholder="Username"
+                class="mb-2 w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                onChange={handleChange}
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                placeholder="Email"
+                class="mb-2 w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                onChange={handleChange}
+              />
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                class="mb-4 w-full"
+                onChange={handleAvatarChange}
+              />
               <button
-                type="submit"
+                onClick={handleSubmit}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
-                Update Profile
+                Save
+              </button>
+              <button
+                onClick={() => setShowSettings(false)}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Cancel
               </button>
             </form>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
-
 export default Profile;
