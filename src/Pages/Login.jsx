@@ -22,6 +22,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Hello!!')
 
     login(username, password)
       .then(() => {

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Image } from 'cloudinary-react';
+import swal from 'sweetalert';
 import { useAuth } from '../AuthContext';
 
 const Profile = () => {
@@ -16,24 +18,62 @@ const Profile = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prevState) => ({ ...prevState, avatar: file }));
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'dldgcvsi');
+
+      try {
+        const response = await fetch('https://api.cloudinary.com/v1_1/db4tmeuux/image/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
+        setFormData((prevState) => ({ ...prevState, avatar: data.secure_url }));
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateUser(formData).then((updatedUser) => {
-      // Optionally, you can show a success message or handle any other logic here
-      console.log('User updated successfully:', updatedUser);
-    });
+    
+
+    const { id, ...formDataWithoutId } = formData;
+    // console.log(formDataWithoutId);
+
+    try {
+      const updatedUser = await updateUser(formDataWithoutId);
+
+      swal({
+        title: 'Success',
+        text: 'Profile updated successfully!',
+        icon: 'success',
+        buttons: false,
+        timer: 1500,
+      }).then(() => {
+        window.location.reload();
+      });
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      // Optionally, you can show an error message using SweetAlert
+    }
   };
 
   if (!user) {
     return <div>Please log in to view your profile.</div>;
   }
+
+  <Image
+        cloudName="db4tmeuux" // Replace with your Cloudinary cloud_name
+        publicId={formData.avatar || user.avatar}
+        width="100"
+        crop="scale"
+  />
 
   return (
     <div className="bg-gray-100 min-h-screen">

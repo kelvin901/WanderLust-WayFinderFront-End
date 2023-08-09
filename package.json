@@ -12,6 +12,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "chart.js": "^4.3.3",
+    "cloudinary-react": "^1.8.1",
     "faker": "^6.6.6",
     "js-cookie": "^3.0.5",
     "leaflet": "^1.9.4",

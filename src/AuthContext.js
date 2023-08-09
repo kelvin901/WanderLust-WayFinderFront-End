@@ -85,13 +85,10 @@ export function AuthProvider({ children }) {
       console.error('Logout failed:', error);
     }
   };
-  
-
-
-
-  // UPDATE USER PROFILE INFO
 
   const updateUser = (userData) => {
+    console.log(userData);
+    console.log(user.id)
     return fetch(`/users/${user.id}`, {
       method: 'PATCH',
       headers: {
