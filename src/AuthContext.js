@@ -89,8 +89,6 @@ export function AuthProvider({ children }) {
   };
 
   const updateUser = (userData) => {
-    console.log(userData);
-    console.log(user.id)
     return fetch(`/users/${user.id}`, {
       method: 'PATCH',
       headers: {
@@ -106,10 +104,18 @@ export function AuthProvider({ children }) {
         }
       })
       .then((data) => {
-        setUser(data); // Update the user state with the received data
+        localStorage.setItem("user", JSON.stringify({...user, ...data}));
+        setUser((prevUser) => ({
+          ...prevUser,
+          ...data,
+        }));
         return data;
+      })
+      .catch((error) => {
+        console.error('Update failed:', error);
       });
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, login, register, logout, updateUser }}>

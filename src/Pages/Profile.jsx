@@ -70,6 +70,7 @@ const Profile = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      console.log(formDataWithoutId)
     } catch (error) {
       console.error('Error updating profile:', error);
     }
