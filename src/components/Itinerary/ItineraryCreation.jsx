@@ -124,7 +124,7 @@ const ItineraryCreation = () => {
       <h2 className="text-2xl font-bold mb-4">Create Itinerary</h2>
       <button
         onClick={handleAddItinerary}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="bg-blue-500 text-white px-4 py-2 rounded w-1/4"
       >
         Add Itinerary
       </button>
