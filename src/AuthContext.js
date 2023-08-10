@@ -1,26 +1,24 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-
 const AuthContext = createContext();
-
 export function useAuth() {
   return useContext(AuthContext);
 }
-
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    // Check if the user is logged in by reading the 'user' data from localStorage
-
     const userLocalStorage = localStorage.getItem('user');
-    console.log(userLocalStorage)
     if (userLocalStorage) {
       setUser(JSON.parse(userLocalStorage));
     }
+    const storedRoute = localStorage.getItem('storedRoute');
+    if (storedRoute) {
+      navigate(storedRoute);
+      localStorage.removeItem('storedRoute');
+    }
   }, []);
-
   const login = (username, password) => {
     return fetch('/login', {
       method: 'POST',
@@ -40,39 +38,17 @@ export function AuthProvider({ children }) {
         }
       })
       .then((data) => {
-        setUser(data.user); // Update the user state with the received data
-        localStorage.setItem('user', JSON.stringify(data.user)); // Store the 'user' data in localStorage
+        setUser(data.user);
+        localStorage.setItem('user', JSON.stringify(data.user));
         return data;
       });
   };
-
-  const register = (userData) => {
-    return fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to sign up');
-        }
-      })
-      .then((data) => {
-        setUser(data); // Update the user state with the received data
-        return data;
-      });
-  };
-
   const logout = async () => {
     try {
+      localStorage.setItem('storedRoute', window.location.pathname);
       await fetch('/logout', {
         method: 'DELETE',
       });
-  
       swal({
         title: 'Success',
         text: 'Logout Successful!',
@@ -80,14 +56,12 @@ export function AuthProvider({ children }) {
         timer: 1000,
         buttons: false,
       });
-  
-      setUser(null); // Clear user state on logout
-      localStorage.removeItem('user'); // Remove the 'user' data from localStorage
+      setUser(null);
+      localStorage.removeItem('user');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
-
   const updateUser = (userData) => {
     return fetch(`/users/${user.id}`, {
       method: 'PATCH',
@@ -115,10 +89,17 @@ export function AuthProvider({ children }) {
         console.error('Update failed:', error);
       });
   };
-  
-
+  useEffect(() => {
+    const beforeUnloadHandler = (event) => {
+      localStorage.setItem('storedRoute', window.location.pathname);
+    };
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    };
+  }, []);
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
