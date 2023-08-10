@@ -28,7 +28,7 @@ const PastItineraries = () => {
             <p>Destination: {itinerary.destination.name}</p>
             <p>Date: {itinerary.date}</p>
             <p>Time: {itinerary.time}</p>
-            {/* ADD MORE ITINERARY DETAILS */}
+            
           </li>
         ))}
       </ul>

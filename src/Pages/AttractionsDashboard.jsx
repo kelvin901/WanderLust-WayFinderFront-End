@@ -26,18 +26,23 @@ const AttractionsDashboard = () => {
 
   return (
     <div className="bg-gray-200 p-4 flex flex-col">
-      <div className="flex flex-row space-x-4">
 
+      {/* ATTRACTION FORM */}
 
-    {/* ATTRACTION FORM */}
-
-
-       <div>
+        <div>
           <AttractionsForm
             selectedAttraction={selectedAttraction}
             fetchAttractions={fetchAttractions}
           />
         </div>
+
+      <div className="flex flex-row space-x-4">
+
+
+    
+
+
+     
 
 
     {/* ATTRACTION TABLE */}
