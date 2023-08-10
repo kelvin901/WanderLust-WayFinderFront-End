@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
-
+import Swal from 'sweetalert2';
 const ItineraryCreation = () => {
-  const { user } = useAuth(); // Get the logged-in user from the AuthContext
+  const { user } = useAuth();
   const [userDestinations, setUserDestinations] = useState([]);
-  const [selectedDestination, setSelectedDestination] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [activity, setActivity] = useState('');
-  const [duration, setDuration] = useState('');
-
   useEffect(() => {
-    // Fetch destinations for the logged-in user when the component mounts
-    // You can adjust the API endpoint according to your server setup
     fetch(`/users/${user.id}/destinations`)
       .then((response) => response.json())
       .then((data) => {
@@ -22,124 +14,121 @@ const ItineraryCreation = () => {
         console.error('Error fetching destinations:', error);
       });
   }, [user.id]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform a fetch request to save the itinerary data to the server
-    // You can use the fetch API or a library like Axios for the request
-    // For example, using fetch:
-    fetch('/itineraries', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+  const handleAddItinerary = () => {
+    Swal.fire({
+      title: 'Create Itinerary',
+      html: `
+        <form id="itinerary-form">
+          <div class="mb-4">
+            <label for="destination" class="block text-sm font-medium text-gray-700">
+              Select Destination
+            </label>
+            <select
+              id="destination"
+              class="border border-gray-400 p-2 w-full"
+            >
+              <option value="" disabled>Select a destination</option>
+              ${userDestinations
+                .map(
+                  (destination) => `
+                    <option value="${destination.id}">
+                      ${destination.name}
+                    </option>
+                  `
+                )
+                .join('')}
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="date" class="block text-sm font-medium text-gray-700">
+              Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              class="border border-gray-400 p-2 w-full"
+              placeholder="Enter date"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="time" class="block text-sm font-medium text-gray-700">
+              Time
+            </label>
+            <input
+              type="time"
+              id="time"
+              class="border border-gray-400 p-2 w-full"
+              placeholder="Enter time"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="activity" class="block text-sm font-medium text-gray-700">
+              Activity
+            </label>
+            <textarea
+              id="activity"
+              class="border border-gray-400 p-2 w-full"
+              placeholder="Enter activity"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="duration" class="block text-sm font-medium text-gray-700">
+              Duration
+            </label>
+            <input
+              type="text"
+              id="duration"
+              class="border border-gray-400 p-2 w-full"
+              placeholder="Enter duration"
+            />
+          </div>
+        </form>
+      `,
+      showCancelButton: true,
+      focusConfirm: false,
+      preConfirm: () => {
+        const form = document.getElementById('itinerary-form');
+        const selectedDestination = form.destination.value;
+        const selectedDate = form.date.value;
+        const selectedTime = form.time.value;
+        const selectedActivity = form.activity.value;
+        const selectedDuration = form.duration.value;
+        return fetch('/itineraries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            destination_id: selectedDestination,
+            date: selectedDate,
+            time: selectedTime,
+            activity: selectedActivity,
+            duration: selectedDuration,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Itinerary created:', data);
+            Swal.fire('Success!', 'Itinerary created successfully', 'success');
+          })
+          .catch((error) => {
+            console.error('Error creating itinerary:', error);
+            Swal.fire('Error', 'An error occurred while creating the itinerary', 'error');
+          });
       },
-      body: JSON.stringify({
-        user_id: user.id, // Set the user_id to the logged-in user's id
-        destination_id: selectedDestination,
-        date,
-        time,
-        activity,
-        duration,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response, you can show a success message or redirect
-        console.log('Itinerary created:', data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error creating itinerary:', error);
-      });
+    });
   };
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mb-4">Create Itinerary</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="destination" className="block text-sm font-medium text-gray-700">
-            Select Destination
-          </label>
-          <select
-            id="destination"
-            value={selectedDestination}
-            onChange={(e) => setSelectedDestination(e.target.value)}
-            className="border border-gray-400 p-2 w-full"
-          >
-            <option value="" disabled>Select a destination</option>
-            {userDestinations.map((destination) => (
-              <option key={destination.id} value={destination.id}>
-                {destination.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700">
-            Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="border border-gray-400 p-2 w-full"
-            placeholder="Enter date"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="time" className="block text-sm font-medium text-gray-700">
-            Time
-          </label>
-          <input
-            type="time"
-            id="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            className="border border-gray-400 p-2 w-full"
-            placeholder="Enter time"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="activity" className="block text-sm font-medium text-gray-700">
-            Activity
-          </label>
-          <textarea
-            id="activity"
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-            className="border border-gray-400 p-2 w-full"
-            placeholder="Enter activity"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="duration" className="block text-sm font-medium text-gray-700">
-            Duration
-          </label>
-          <input
-            type="text"
-            id="duration"
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            className="border border-gray-400 p-2 w-full"
-            placeholder="Enter duration"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Create Itinerary
-        </button>
-      </form>
+      <button
+        onClick={handleAddItinerary}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Add Itinerary
+      </button>
     </div>
   );
 };
-
 export default ItineraryCreation;

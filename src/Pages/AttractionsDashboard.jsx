@@ -38,13 +38,6 @@ const AttractionsDashboard = () => {
 
       <div className="flex flex-row space-x-4">
 
-
-    
-
-
-     
-
-
     {/* ATTRACTION TABLE */}
 
         <div className="flex-grow">
