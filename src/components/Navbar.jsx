@@ -81,14 +81,15 @@ function Navbar() {
                       Admin
                     </button>
                   )}
-                  <button
+                  {/* <button
                     onClick={handleProfileClick}
                     className="hover:bg-button-primary px-4 py-1 rounded-xl"
                   >
                     {user.username}
-                  </button>
+                  </button> */}
                   {/* Display the user's avatar */}
                   <Image
+                   onClick={handleProfileClick}
                     cloudName="db4tmeuux" // Replace with your Cloudinary cloud_name
                     publicId={user.avatar || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
                     width="48"
