@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import AttractionsTable from '../components/AdminDash/AttractionsTable';
 import AttractionsForm from '../components/AdminDash/AttractionsForm';
-// import AnalyticsComponent from '../components/AdminDash/AnalyticsComponent';
-
 
 const AttractionsDashboard = () => {
   const [attractions, setAttractions] = useState([]);
@@ -28,31 +25,34 @@ const AttractionsDashboard = () => {
   };
 
   return (
-    <div className="bg-gray-200 p-4">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="col-span-2">
-          {/* <AnalyticsComponent attractions={attractions} /> */}
-          <AttractionsTable
-        attractions={attractions}
-        handleAttractionSelect={handleAttractionSelect}
-        fetchAttractions={fetchAttractions}
-      />
-        </div>
-        <div>
+    <div className="bg-gray-200 p-4 flex flex-col">
+      <div className="flex flex-row space-x-4">
+
+
+    {/* ATTRACTION FORM */}
+
+
+       <div>
           <AttractionsForm
             selectedAttraction={selectedAttraction}
             fetchAttractions={fetchAttractions}
           />
         </div>
+
+
+    {/* ATTRACTION TABLE */}
+
+        <div className="flex-grow">
+          <AttractionsTable
+            attractions={attractions}
+            handleAttractionSelect={handleAttractionSelect}
+            fetchAttractions={fetchAttractions}
+          />
+        </div>
+      
       </div>
-      {/* <AttractionsTable
-        attractions={attractions}
-        handleAttractionSelect={handleAttractionSelect}
-        fetchAttractions={fetchAttractions}
-      /> */}
     </div>
   );
 };
 
 export default AttractionsDashboard;
-

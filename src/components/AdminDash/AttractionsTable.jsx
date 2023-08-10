@@ -1,15 +1,51 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 
-const AttractionsTable = ({ attractions, handleAttractionSelect, fetchAttractions }) => {
+const AttractionsTable = ({ attractions, fetchAttractions }) => {
   const handleDelete = async (id) => {
     try {
-      await fetch(`/attractions/${id}`, {
-        method: 'DELETE',
+      const result = await Swal.fire({
+        title: 'Confirm Delete',
+        text: 'Are you sure you want to delete this attraction?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
       });
-      fetchAttractions();
+
+      if (result.isConfirmed) {
+        await fetch(`/attractions/${id}`, {
+          method: 'DELETE',
+        });
+        fetchAttractions();
+        Swal.fire('Deleted!', 'The attraction has been deleted.', 'success');
+      }
     } catch (error) {
       console.error('Error deleting attraction:', error);
     }
+  };
+
+  const handleRowClick = (attraction) => {
+    Swal.fire({
+
+      html: `
+        <p style="text-align: center; margin-bottom: 10px;">${attraction.attraction_name}</p>
+        <img src="${attraction.image_1}" alt="Attraction Image" style="display: block; margin: 0 auto; max-width: 100%;">
+        <p>${attraction.description}</p>
+      `,
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Close',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(attraction.id);
+      }
+    });
   };
 
   return (
@@ -18,26 +54,17 @@ const AttractionsTable = ({ attractions, handleAttractionSelect, fetchAttraction
         <tr>
           <th>Attraction Name</th>
           <th>Description</th>
-          <th>Image</th>
-          {/* ... Other columns */}
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {attractions.map((attraction) => (
-          <tr key={attraction.id}>
+          <tr
+            key={attraction.id}
+            style={{ borderBottom: '1px solid #ddd', cursor: 'pointer' }}
+            onClick={() => handleRowClick(attraction)}
+          >
             <td>{attraction.attraction_name}</td>
             <td>{attraction.description}</td>
-            <td> <img src= {attraction.image_1} alt= 'image' style={{width: 70}} /></td>
-            {/* ... Other columns */}
-            <td>
-              <button
-                className="text-red-600"
-                onClick={() => handleDelete(attraction.id)}
-              >
-                Delete
-              </button>
-            </td>
           </tr>
         ))}
       </tbody>
