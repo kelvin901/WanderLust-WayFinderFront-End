@@ -82,6 +82,19 @@ const ItineraryCreation = () => {
               placeholder="Enter duration"
             />
           </div>
+
+          <div class="mb-4">
+          <label for="duration" class="block text-sm font-medium text-gray-700">
+            Budget
+          </label>
+          <input
+            type="number"
+            id="budget"
+            class="border border-gray-400 p-2 w-full"
+            placeholder="Enter budget"
+          />
+        </div>         
+
         </form>
       `,
       showCancelButton: true,
@@ -93,6 +106,7 @@ const ItineraryCreation = () => {
         const selectedTime = form.time.value;
         const selectedActivity = form.activity.value;
         const selectedDuration = form.duration.value;
+        const selectedBudget = form.budget.value;
         return fetch('/itineraries', {
           method: 'POST',
           headers: {
@@ -105,6 +119,7 @@ const ItineraryCreation = () => {
             time: selectedTime,
             activity: selectedActivity,
             duration: selectedDuration,
+            budget: selectedBudget,
           }),
         })
           .then((response) => response.json())
