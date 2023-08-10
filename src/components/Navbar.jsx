@@ -137,69 +137,91 @@ function Navbar() {
         </div>
 
         {isOpen && (
-          <div className="md:hidden transition-all" id="mobile-menu">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-black">
-              <Link
-                to="/"
-                onClick={handleMobileLinkClick}
-                className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+  <div className="md:hidden transition-all" id="mobile-menu">
+    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-black">
+      <Link
+        to="/"
+        onClick={handleMobileLinkClick}
+        className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+      >
+        Home
+      </Link>
+      {user && (
+        <>
+          <Link
+            to="/explore"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Explore
+          </Link>
+          <Link
+            to="/about"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Contact
+          </Link>
+          <div className="flex items-center gap-4">
+            
+              <Image
+              onClick={handleProfileClick}
+                cloudName="db4tmeuux" // Replace with your Cloudinary cloud_name
+                publicId={user.avatar || "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
+                width="48"
+                height="48"
+                border="solid blue"
+                crop="thumb"
+                className="rounded-full"
+                style={{cursor: "pointer"}}
+              />
+        
+            {user.admin && (
+              <button
+                onClick={handleAdminClick}
+                className="hover:bg-button-primary px-4 py-1 rounded-xl"
               >
-                Home
-              </Link>
-              {user && (
-                <>
-                  <Link
-                    to="/explore"
-                    onClick={handleMobileLinkClick}
-                    className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Explore
-                  </Link>
-                  <Link
-                    to="/about"
-                    onClick={handleMobileLinkClick}
-                    className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    About
-                  </Link>
-                  <Link
-                    to="/contact"
-                    onClick={handleMobileLinkClick}
-                    className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Contact
-                  </Link>
-                </>
-              )}
-              {user ? (
-                <Link
-                  to="/login"
-                  onClick={logout}
-                  className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Logout
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/signup"
-                    onClick={handleMobileLinkClick}
-                    className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Register
-                  </Link>
-                  <Link
-                    to="/login"
-                    onClick={handleMobileLinkClick}
-                    className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                  >
-                    Login
-                  </Link>
-                </>
-              )}
-            </div>
+                Admin
+              </button>
+            )}
+            <button
+              onClick={logout}
+              className="hover:bg-button-primary px-4 py-1 rounded-xl"
+            >
+              Logout
+            </button>
           </div>
-        )}
+        </>
+      )}
+      {!user && (
+        <>
+          <Link
+            to="/signup"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Register
+          </Link>
+          <Link
+            to="/login"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Login
+          </Link>
+        </>
+      )}
+    </div>
+  </div>
+)}
+
       </Container>
     </nav>
   );
