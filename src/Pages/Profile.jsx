@@ -20,6 +20,7 @@ const Profile = () => {
     setShowSettings(true);
   };
 
+
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -27,37 +28,53 @@ const Profile = () => {
       formData.append('file', file);
       formData.append('upload_preset', 'dldgcvsi');
       try {
+        // Show loading animation here
+        const loadingAnimation = Swal.mixin({
+          toast: true,
+          position: 'center',
+          showConfirmButton: false,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.querySelector('.swal2-progress-bar').style.backgroundColor = '#4caf50'; // Customize the progress bar color
+          },
+        });
+  
+        loadingAnimation.fire({
+          title: 'Uploading...',
+          timer: 0,
+          onBeforeOpen: () => {
+            loadingAnimation.showProgressSteps = true; // Fixed: Removed the colon and set the property directly
+          },
+        });
+  
         const response = await fetch('https://api.cloudinary.com/v1_1/db4tmeuux/image/upload', {
           method: 'POST',
           body: formData,
         });
+  
         const data = await response.json();
         setFormData((prevState) => ({ ...prevState, avatar: data.secure_url }));
-        console.log(formData)
+  
+        // Close loading animation
+        loadingAnimation.close();
+  
+        console.log(formData);
       } catch (error) {
         console.error('Error uploading image:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred while uploading the image',
+          icon: 'error',
+        });
       }
     }
   };
+  
 
-  // const handleSettingsSave = async () => {
-  //   setShowSettings(false);
-  //   try {
-  //     const updatedUser = await updateUser(formData);
-  //     swal({
-  //       title: 'Success',
-  //       text: 'Profile updated successfully!',
-  //       icon: 'success',
-  //       buttons: false,
-  //       timer: 1500,
-  //     }).then(() => {
-  //       window.location.reload();
-  //     });
-  //   } catch (error) {
-  //     console.error('Error updating profile:', error);
-  //     // Optionally, you can show an error message using SweetAlert
-  //   }
-  // };
+
+
+
+
 
   const handleSubmit = async () => {
     setShowSettings(false);
