@@ -97,6 +97,7 @@ function Navbar() {
                     border="solid blue"
                     crop="thumb"
                     className="rounded-full"
+                    style= {{cursor:"pointer"}}
                   />
                   <button
                     onClick={logout}
