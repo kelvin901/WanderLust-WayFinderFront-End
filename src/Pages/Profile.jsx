@@ -33,6 +33,7 @@ const Profile = () => {
         });
         const data = await response.json();
         setFormData((prevState) => ({ ...prevState, avatar: data.secure_url }));
+        console.log(formData)
       } catch (error) {
         console.error('Error uploading image:', error);
       }
@@ -113,6 +114,9 @@ const Profile = () => {
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg p-8 shadow-md">
             <form>
+
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">Update your profile</h2>
+              
                 <input
                 type="text"
                 name="first_name"
