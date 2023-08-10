@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../AuthContext';
+import { useItinerary } from '../../ItineraryContext';
 import Swal from 'sweetalert2';
 const PastItineraries = () => {
   const { user } = useAuth(); // Get the logged-in user from the AuthContext
-  const [userItineraries, setUserItineraries] = useState([]);
+  // const [userItineraries, setUserItineraries] = useState([]);
+
+  const { userItineraries, updateItineraries } = useItinerary();
 
 
   useEffect(() => {
     fetch(`/users/${user.id}/itineraries`)
       .then((response) => response.json())
       .then((data) => {
-        // Sort the itineraries based on date and time before setting the state
         const sortedItineraries = data.sort((a, b) => {
           const aDateTime = new Date(`${a.date}T${a.time}`);
           const bDateTime = new Date(`${b.date}T${b.time}`);
           return aDateTime - bDateTime;
         });
 
-        setUserItineraries(sortedItineraries);
+        updateItineraries(sortedItineraries); // Update the shared state
       })
       .catch((error) => {
         console.error('Error fetching itineraries:', error);
       });
-  }, [user.id]);
+  }, [user.id, updateItineraries]);
 
 
 
