@@ -14,7 +14,7 @@ export const ItineraryProvider = ({ children }) => {
 
   const updateDestinations = (newDestinations) => {
     setUserDestinations(newDestinations);
-  };
+  } ;
 
   return (
     <ItineraryContext.Provider
