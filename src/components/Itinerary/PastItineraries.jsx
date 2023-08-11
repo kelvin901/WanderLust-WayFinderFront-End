@@ -75,7 +75,7 @@ const PastItineraries = () => {
           console.error('Error deleting itinerary:', error);
           Swal.fire('Deleted!', 'The itinerary has been deleted.', 'success');        }
       }
-    });
+     });
   };
   return (
     <div className="container mx-auto px-4 py-8">
