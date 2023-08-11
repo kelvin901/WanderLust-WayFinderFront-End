@@ -121,7 +121,7 @@ const ItineraryCreation = () => {
             duration: selectedDuration,
             budget: selectedBudget,
           }),
-        })
+         })
           .then((response) => response.json())
           .then((data) => {
             console.log('Itinerary created:', data);
