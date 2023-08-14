@@ -72,7 +72,6 @@ const AttractionDetails = () => {
           View on Map
         </a>
 
-        <iframe src={attraction.map_url} width="600" height="250" style= {{border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
       </div>
     </div>

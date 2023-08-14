@@ -1,7 +1,9 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import Login from './Pages/Login';
+// import Login from './Pages/Login'; DEPLOY ERROR 1
+
+
 const AuthContext = createContext();
 export function useAuth() {
   return useContext(AuthContext);
@@ -19,7 +21,7 @@ export function AuthProvider({ children }) {
       navigate(storedRoute);
       localStorage.removeItem('storedRoute');
     }
-  }, []);
+  }, [navigate]);
 
 
 // Register
