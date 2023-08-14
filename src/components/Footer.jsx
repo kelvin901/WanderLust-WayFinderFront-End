@@ -11,78 +11,32 @@ export default function Footer() {
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">company</h1>
             <ul>
               <li>
-                <a href="">About Us</a>
+                <a href="/about">About Us</a>
               </li>
               <li>
-                <a href="">Contact Us</a>
+                <a href="/contact">Contact Us</a>
               </li>
+             
               <li>
-                <a href="">Knowledge Base</a>
+                <a href="/about">Privacy Policy</a>
               </li>
-              <li>
-                <a href="">Tutorials</a>
-              </li>
-              <li>
-                <a href="">Terms and Conditions</a>
-              </li>
-              <li>
-                <a href="">Cookie Policy</a>
-              </li>
-              <li>
-                <a href="">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="">Careers</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">browser</h1>
-            <ul>
-              {/* <li>
-                <a href="#">Memberships</a>
-              </li> */}
-              <li>
-                <a href="">CJobs</a>
-              </li>
-              <li>
-                <a href="">Experts</a>
-              </li>
-              <li>
-                <a href="">Organizations</a>
-              </li>
-              <li>
-                <a href="#">Funding</a>
-              </li>
-              <li>
-                <a href="">CAwards</a>
-              </li>
-              <li>
-                <a href="">Donors</a>
-              </li>
-              <li>
-                <a href="">News</a>
-              </li>
+            
             </ul>
           </div>
           <div>
             <h1 className="font-bold capitalize sm:pt-0 pt-8 pb-4">connect</h1>
             <ul>
               <li>
-                <a href="">Twitter</a>
+                <a href="https://github.com/kelvin901/WanderLust-WayFinderFront-End">Github</a>
+              </li>
+
+              <li>
+                <a href="https://www.linkedin.com/">Linkedin</a>
               </li>
               <li>
-                <a href="">Facebook</a>
+                <a href="https://www.youtube.com/watch?v=OUNCrtxLMLM">Youtube</a>
               </li>
-              <li>
-                <a href="">Linkedin</a>
-              </li>
-              <li>
-                <a href="">Youtube</a>
-              </li>
-              <li>
-                <a href="">RSS</a>
-              </li>
+ 
             </ul>
           </div>
         </div>
