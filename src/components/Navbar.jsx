@@ -45,10 +45,10 @@ function Navbar() {
                 {user && (
                   <>
                     <Link
-                      to="/explore"
+                      to="/my_destinations"
                       className="hover:bg-button-primary hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                     >
-                      Explore
+                      My Destinations
                     </Link>
 
 
@@ -160,12 +160,22 @@ function Navbar() {
       {user && (
         <>
           <Link
-            to="/explore"
+            to="/my_destinations"
             onClick={handleMobileLinkClick}
             className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
-            Explore
+            My Destinations
           </Link>
+
+          <Link
+            to="/my_itineraries"
+            onClick={handleMobileLinkClick}
+            className="hover:bg-primary-base hover:bg-button-primary hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            My Itineraries
+          </Link>
+
+
           <Link
             to="/about"
             onClick={handleMobileLinkClick}

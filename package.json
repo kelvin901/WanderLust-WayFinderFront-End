@@ -29,7 +29,7 @@
     "recharts": "^2.7.2",
     "slick-carousel": "^1.8.1",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.7.20",
+    "sweetalert2": "^11.7.22",
     "tw-elements": "^1.0.0-beta3",
     "web-vitals": "^3.4.0"
   },

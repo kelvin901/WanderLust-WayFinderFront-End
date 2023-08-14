@@ -93,7 +93,7 @@ export default function MyRoutes() {
       <Route path="/attraction/:id" element={renderPrivateRoute(<AttractionDetails />)} />
       <Route path="/contact" element={renderPrivateRoute(<Contact />)} />
       <Route path="/profile" element={renderPrivateRoute(<Profile />)} />
-      <Route path="/explore" element={renderPrivateRoute(<TravelItinerary />)} />
+      <Route path="/my_destinations" element={renderPrivateRoute(<TravelItinerary />)} />
       <Route path="/my_itineraries" element={renderPrivateRoute(<PastItineraries />)} />
 
       {/* ADMIN ROUTES */}
