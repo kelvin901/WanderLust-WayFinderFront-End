@@ -111,10 +111,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Authors Infomation
-- 
--
--
--
--
+- <a href="https://github.com/kelvin901">Kelvin Nyoike (Scrum master)</a> 
+- <a href="https://github.com/Jay254">Yegon Japheth Kiptoo (Senior developer)</a>
+- <a href="https://github.com/gorety86">Gorety A.Wagutu (Senior developer)</a>
+- <a href="https://github.com/alvinkenyagah">Alvin Kenyagah (Senior developer)</a>
+- <a href="https://github.com/DavidRimui">David Rimui (Contributor)</a>
 
 
