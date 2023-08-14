@@ -1,115 +1,89 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
-import { useItinerary } from '../../ItineraryContext';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
 
-const PastItineraries = () => {
+function PastItineraries() {
   const { user } = useAuth();
-  const { userItineraries, updateItineraries } = useItinerary();
-
-  const compareItineraries = (a, b) => {
-    const aDateTime = new Date(`${a.date}T${a.time}`);
-    const bDateTime = new Date(`${b.date}T${b.time}`);
-    return bDateTime - aDateTime;
-  };
+  const [itineraries, setItineraries] = useState([]);
 
   useEffect(() => {
+    // Fetch user's itineraries here
     fetch(`/users/${user.id}/itineraries`)
-      .then((response) => response.json())
-      .then((data) => {
-        const sortedItineraries = data.sort((a, b) => {
-          const aDateTime = new Date(`${a.date}T${a.time}`);
-          const bDateTime = new Date(`${b.date}T${b.time}`);
-          return bDateTime - aDateTime; // Reverse order for most recent first
-        });
-
-        updateItineraries(sortedItineraries); // Update the shared state
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Fetching itineraries failed');
+        }
+        return response.json();
       })
-      .catch((error) => {
-        console.error('Error fetching itineraries:', error);
-      });
-  }, [user.id, updateItineraries]);
-
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
-  const formatTime = (timeString) => {
-    const time = new Date(timeString);
-    const hours = time.getUTCHours().toString().padStart(2, '0');
-    const minutes = time.getUTCMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
+      .then((data) => {
+        console.log('Fetched itineraries:', data.itineraries); // Check the data structure here
+        setItineraries(data.itineraries);
+      })
+      .catch((error) => console.error('Fetching itineraries failed:', error));
+  }, [user.id]);
   
 
-
-  const handleDelete = (itinerary) => {
-    Swal.fire({
-      title: 'Delete Itinerary?',
-      text: `Are you sure you want to delete the itinerary for ${itinerary.destination.name} on ${formatDate(
-        itinerary.date
-      )} at ${formatTime(itinerary.time)}?`,
+  const handleDeleteClick = (itineraryId) => {
+    swal.fire({
+      title: 'Delete Itinerary',
+      text: 'Are you sure you want to delete this itinerary?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
-    }).then(async (result) => {
+      confirmButtonColor: '#d9534f',
+      confirmButtonText: 'Delete',
+    }).then((result) => {
       if (result.isConfirmed) {
-        try {
-          const response = await fetch(`/itineraries/${itinerary.id}`, {
-            method: 'DELETE',
-          });
-  
-          if (response.ok) {
-            // Update the userItineraries state after successful deletion
-            const updatedItineraries = userItineraries.filter((item) => item.id !== itinerary.id);
-            updateItineraries(updatedItineraries);
-            
-            Swal.fire('Deleted!', 'The itinerary has been deleted.', 'success');
-          } else {
-            throw new Error('Failed to delete itinerary');
-          }
-        }
-         catch (error) {
-          console.error('Error deleting itinerary:', error);
-          Swal.fire('Deleted!', 'The itinerary has been deleted.', 'success');        }
+        // Perform delete action here
+        fetch(`/itineraries/${itineraryId}`, {
+          method: 'DELETE',
+        })
+          .then(() => {
+            setItineraries((prevItineraries) =>
+              prevItineraries.filter((itinerary) => itinerary.id !== itineraryId)
+            );
+            swal.fire('Deleted!', 'Itinerary has been deleted.', 'success');
+          })
+          .catch((error) => console.error('Deleting itinerary failed:', error));
       }
-     });
+    });
   };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Past Itineraries</h2>
-      <table className="w-full">
+    <div className="w-full">
+      <h2 className="text-2xl font-semibold mb-4">Your Itineraries</h2>
+      <table className="table-auto w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2 bg-gray-100 text-left">Date</th>
-            <th className="px-4 py-2 bg-gray-100 text-left">Time</th>
-            <th className="px-4 py-2 bg-gray-100 text-left">Destination</th>
-            <th className="px-4 py-2 bg-gray-100 text-left">Activity</th>
-            <th className="px-4 py-2 bg-gray-100 text-left">Duration</th>
-            <th className="px-4 py-2 bg-gray-100 text-left">Budget</th>
+            <th className="px-4 py-2">Date</th>
+            <th className="px-4 py-2">Time</th>
+            <th className="px-4 py-2">Activity</th>
+            <th className="px-4 py-2">Destination</th>
+            <th className="px-4 py-2">Budget</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {userItineraries.map((itinerary) => (
-            <tr
-              key={itinerary.id}
-              onClick={() => handleDelete(itinerary)}
-              className="border-b hover:bg-gray-50 cursor-pointer transition-shadow shadow-md hover:shadow-lg"
-            >
-              <td className="px-4 py-2">{formatDate(itinerary.date)}</td>
-              <td className="px-4 py-2">{formatTime(itinerary.time)}</td>
-              <td className="px-4 py-2">{itinerary.destination.name}</td>
-              <td className="px-4 py-2">{itinerary.activity}</td>
-              <td className="px-4 py-2">{itinerary.duration}</td>
-              <td className="px-4 py-2">{itinerary.budget}</td>
+          {itineraries.map((itinerary) => (
+            <tr key={itinerary.id}>
+              <td className="border px-4 py-2">{itinerary.date}</td>
+              <td className="border px-4 py-2">{itinerary.time}</td>
+              <td className="border px-4 py-2">{itinerary.activity}</td>
+              <td className="border px-4 py-2">{itinerary.destination}</td>
+              <td className="border px-4 py-2">{itinerary.budget}</td>
+              <td className="border px-4 py-2">
+                <button
+                  className="text-red-600 hover:text-red-800"
+                  onClick={() => handleDeleteClick(itinerary.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-};
+}
 
 export default PastItineraries;
