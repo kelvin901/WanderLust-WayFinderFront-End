@@ -50,6 +50,15 @@ function Navbar() {
                     >
                       Explore
                     </Link>
+
+
+                    <Link
+                      to="/my_itineraries"
+                      className="hover:bg-button-primary hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      My Itineraries
+                    </Link>
+
                     <Link
                       to="/about"
                       className="hover:bg-button-primary hover:text-white px-3 py-2 rounded-md text-sm font-medium"

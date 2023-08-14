@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import Login from './Pages/Login';
 const AuthContext = createContext();
 export function useAuth() {
   return useContext(AuthContext);
@@ -19,6 +20,36 @@ export function AuthProvider({ children }) {
       localStorage.removeItem('storedRoute');
     }
   }, []);
+
+
+// Register
+
+const register = (userData) => {
+  return fetch('/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to sign up');
+      }
+    })
+    .then((data) => {
+      navigate("/login"); // Navigate to the login page after successful signup
+      return data;
+    });
+};
+
+
+
+
+
+// Login
   const login = (username, password) => {
     return fetch('/login', {
       method: 'POST',
@@ -43,6 +74,8 @@ export function AuthProvider({ children }) {
         return data;
       });
   };
+
+  // Logout
   const logout = async () => {
     try {
       localStorage.setItem('storedRoute', window.location.pathname);
@@ -62,6 +95,8 @@ export function AuthProvider({ children }) {
       console.error('Logout failed:', error);
     }
   };
+
+// Update user
   const updateUser = (userData) => {
     return fetch(`/users/${user.id}`, {
       method: 'PATCH',
@@ -99,7 +134,7 @@ export function AuthProvider({ children }) {
     };
   }, []);
   return (
-    <AuthContext.Provider value={{ user, login, logout, updateUser }}>
+    <AuthContext.Provider value={{ register,user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
