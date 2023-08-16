@@ -3,8 +3,6 @@
 
 import React from "react";
 import DestinationInput from "../components/Itinerary/ DestinationInput";
-import ItineraryCreation from "../components/Itinerary/ItineraryCreation";
-import PastItineraries from "../components/Itinerary/PastItineraries";
 
 
 
@@ -15,8 +13,6 @@ const TravelItinerary = () => {
 
     <div>
     <DestinationInput />
-    <ItineraryCreation />
-    <PastItineraries />
   </div>
     );
 };

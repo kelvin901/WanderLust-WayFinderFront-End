@@ -76,11 +76,11 @@ const Profile = () => {
 
 
 
-  const handleSubmit = async () => {
+  const handleSubmit =  () => {
     setShowSettings(false);
     const { id, ...formDataWithoutId } = formData;
     try {
-      const updatedUser = await updateUser(formDataWithoutId);
+       updateUser(formDataWithoutId);
       Swal.fire({
         title: 'Success',
         text: 'Profile updated successfully!',

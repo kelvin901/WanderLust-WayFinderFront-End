@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthContext';
 import Swal from 'sweetalert2';
-const ItineraryCreation = () => {
+const ItineraryCreation = ({ setItineraries }) => {
   const { user } = useAuth();
   const [userDestinations, setUserDestinations] = useState([]);
   useEffect(() => {
@@ -126,6 +126,7 @@ const ItineraryCreation = () => {
           .then((data) => {
             console.log('Itinerary created:', data);
             Swal.fire('Success!', 'Itinerary created successfully', 'success');
+            setItineraries((prevItineraries) => [...prevItineraries, data]);
           })
           .catch((error) => {
             console.error('Error creating itinerary:', error);

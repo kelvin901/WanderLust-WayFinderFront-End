@@ -60,6 +60,7 @@ import TravelItinerary from "./Pages/Itinerary";
 import { useAuth } from "./AuthContext";
 import About from "./Pages/About";
 import AttractionDetails from "./components/Home/AttractionDetails";
+import PastItineraries from "./components/Itinerary/PastItineraries";
 
 export default function MyRoutes() {
   const auth = useAuth();
@@ -92,7 +93,8 @@ export default function MyRoutes() {
       <Route path="/attraction/:id" element={renderPrivateRoute(<AttractionDetails />)} />
       <Route path="/contact" element={renderPrivateRoute(<Contact />)} />
       <Route path="/profile" element={renderPrivateRoute(<Profile />)} />
-      <Route path="/explore" element={renderPrivateRoute(<TravelItinerary />)} />
+      <Route path="/my_destinations" element={renderPrivateRoute(<TravelItinerary />)} />
+      <Route path="/my_itineraries" element={renderPrivateRoute(<PastItineraries />)} />
 
       {/* ADMIN ROUTES */}
       <Route path="/admin" element={renderAdminRoute(<AttractionsDashboard />)} />
